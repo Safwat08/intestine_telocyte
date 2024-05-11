@@ -1,0 +1,27 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+# load library
+```{r}
+library(scVascularAnalysis)
+```
+
+# Load raw counts
+```{r}
+library(Seurat)
+library(dplyr)
+
+data <- read.csv('../data/scp_raw_counts.csv.gz')
+metadata <- read.csv('../data/scp_fibroblasts_metadata.csv')
+metadata <- metadata[-1,]
+rownames(metadata) <- metadata[,1]
+metadata <- metadata[,-1]
+  
+
+object <- CreateSeuratObject(data, meta.data = metadata)
+
+saveRDS(object, file = '../objects/object_raw.rds')
+```
+
